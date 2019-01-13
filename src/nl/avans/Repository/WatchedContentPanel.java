@@ -1,8 +1,11 @@
 package nl.avans.Repository;
 
+import nl.avans.Connection.DatabaseConnection;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,35 +25,26 @@ public class WatchedContentPanel extends JPanel {
         selectContent.setForeground(Color.white);
 
         JPanel menuBar = new JPanel();
-        menuBar.setBackground(Color.red);
+        menuBar.setBackground(new Color(229, 9, 20));
         menuBar.setForeground(Color.white);
 
         JComboBox contentBox = new JComboBox();
         DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
         //This content list is loaded from the database
-        contentModel.addElement("Hans");
         contentModel.addElement("Greta");
-        contentModel.addElement("Kinderen");
+        contentModel.addElement("Dries");
+        contentModel.addElement("Wesley");
         contentBox.setModel(contentModel);
         contentBox.setBackground(Color.white);
 
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);
-        searchButton.setForeground(Color.red);
+        searchButton.setForeground(new Color(229, 9, 20));
 
         menuBar.add(selectContent, BorderLayout.WEST);
         menuBar.add(contentBox, BorderLayout.CENTER);
         menuBar.add(searchButton, BorderLayout.EAST);
 
-        //JPanel contentPanel = new JPanel();
-
-        // JTextArea textArea = new JTextArea();
-        JLabel titleLabel = new JLabel("-");
-        JLabel profileLabel = new JLabel("-");
-        JLabel lastWatchedLabel = new JLabel("-");
-        JProgressBar movieProgress = new JProgressBar();
-        movieProgress.setStringPainted(true);
-        //contentPanel.add(new JScrollPane(titleLabel));
         DefaultTableModel model = new DefaultTableModel();
         JTable jtbl = new JTable(model);
         model.addColumn("Titel");
@@ -58,10 +52,17 @@ public class WatchedContentPanel extends JPanel {
         model.addColumn("LaatstBekeken");
         model.addColumn("ProfielNaam");
 
+        jtbl.setGridColor(Color.white);
+
+        JTableHeader header = jtbl.getTableHeader();
+        header.setBackground(Color.white);
+        header.setForeground(new Color(229, 9, 20));
+
         //Show the results
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // The connection URL can be different
                 String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=Netflix;integratedSecurity=true;";
                 Connection con = null;
@@ -75,7 +76,10 @@ public class WatchedContentPanel extends JPanel {
                     con = DriverManager.getConnection(connectionUrl);
 
                     // SQL Statement.
-                    String SQL = "SELECT *, Content.Titel FROM BekekenContent, Content WHERE ProfielNaam = ?";
+                    String SQL = "SELECT * " +
+                            "FROM BekekenContent " +
+                            "JOIN Content ON Content.ContentId = BekekenContent.ContentId " +
+                            "WHERE BekekenContent.ProfielNaam = ?";
 
                     //stmt = con.createStatement();
                     stmt = con.prepareStatement(SQL);
@@ -119,7 +123,6 @@ public class WatchedContentPanel extends JPanel {
 
         watchPanel.add(menuBar, BorderLayout.NORTH);
         watchPanel.add(jtbl, BorderLayout.CENTER);
-        //watchPanel.add(watchContainer, BorderLayout.CENTER);
 
         return watchPanel;
     }

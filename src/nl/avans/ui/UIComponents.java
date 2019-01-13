@@ -1,6 +1,7 @@
 package nl.avans.ui;
 
 import nl.avans.Repository.FilmPanel;
+import nl.avans.Repository.HomePanel;
 import nl.avans.Repository.SeriePanel;
 import nl.avans.Repository.WatchedContentPanel;
 
@@ -21,21 +22,21 @@ public class UIComponents extends JPanel {
         footerContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
         JLabel footerTitle = new JLabel("Netflix Statistix versie 0.1", JLabel.LEFT);
         JLabel contributors = new JLabel("Informatica 2019 - Klas E - Dries de Roover | Wesley de Jonge", JLabel.RIGHT);
+        footerTitle.setForeground(Color.white);
+        contributors.setForeground(Color.white);
         footerContainer.add(footerTitle, BorderLayout.WEST);
         footerContainer.add(contributors, BorderLayout.EAST);
+        footerContainer.setBackground(new Color(229, 9, 20));
 
-        footerContainer.validate();
-        footerContainer.repaint();
         return footerContainer;
     }
 
-    public JTabbedPane createWatchedSeriePanel() {
+    public JTabbedPane createTabs() {
         JTabbedPane tabbedPane = new JTabbedPane();
         //tabbedPane(new GridLayout(1,1));
         ImageIcon icon = new ImageIcon();
 
-        JComponent homePanel = makeTextPanel("Home");
-        tabbedPane.addTab("Netflix Statistix - Home", icon, homePanel);
+        tabbedPane.addTab("Netflix Statistix - Home", icon, createHome());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
         tabbedPane.addTab("Films", icon, createFilms());
@@ -47,10 +48,24 @@ public class UIComponents extends JPanel {
         tabbedPane.addTab("Bekeken Content", icon, createWatchedContent());
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
+        //Setting the background color of the tabs to red and the foreground to white.
+        for (int i = 0; i < tabbedPane.getTabCount(); i++){
+            tabbedPane.setBackgroundAt(i, Color.white);
+            tabbedPane.setForegroundAt(i, new Color(229, 9, 20));
+        }
+
+        //UIManager.put("TabbedPane.selectedTabBackground", new Color(229, 9, 20));
+        //        UIManager.put("TabbedPane.selectedTabForeground", Color.white);
+
         //The following line enables to use scrolling tabs.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
         return tabbedPane;
+    }
+
+    public JPanel createHome(){
+        HomePanel homePanel = new HomePanel();
+        return homePanel.createHomePanel();
     }
 
     public JPanel createFilms() {
@@ -120,15 +135,6 @@ public class UIComponents extends JPanel {
     public JLabel line() {
         JLabel line = new JLabel("                                               ");
         return line;
-    }
-
-    protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
     }
 
 }

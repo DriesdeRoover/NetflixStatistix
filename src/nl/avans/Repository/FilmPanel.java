@@ -1,9 +1,13 @@
 package nl.avans.Repository;
 
+import com.sun.corba.se.impl.orb.DataCollectorBase;
+import nl.avans.Connection.DatabaseConnection;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,13 +24,13 @@ public class FilmPanel extends JPanel {
         selectContent.setForeground(Color.white);
 
         JPanel menuBar = new JPanel();
-        menuBar.setBackground(Color.red);
+        menuBar.setBackground(new Color(229, 9, 20));
         menuBar.setForeground(Color.white);
 
 
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);
-        searchButton.setForeground(Color.red);
+        searchButton.setForeground(new Color(229, 9, 20));
 
         menuBar.add(selectContent, BorderLayout.WEST);
         menuBar.add(searchButton, BorderLayout.EAST);
@@ -46,65 +50,29 @@ public class FilmPanel extends JPanel {
 
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
-        header.setForeground(Color.red);
+        header.setForeground(new Color(229, 9, 20));
 
 
         //Show the results
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // The connection URL can be different
-                String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=Netflix;integratedSecurity=true;";
-                Connection con = null;
-                Statement stmt = null;
-                ResultSet rs = null;
-
+                DatabaseConnection.connect();
                 try {
-                    // 'Import' the driver.
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    // Maak de verbinding met de database.
-                    con = DriverManager.getConnection(connectionUrl);
-
-                    // SQL Statement.
-                    String SQL = "SELECT * FROM Film";
-
-                    stmt = con.createStatement();
-                    //stmt = con.createStatement(SQL);
-                    // Execute the SQL statement
-                    rs = stmt.executeQuery(SQL);
-
-
-                    // Adding the results to the labels.
+                    ResultSet rs = DatabaseConnection.getData("SELECT * FROM Film");
                     while(rs.next()){
                         model.addRow(new Object[]{rs.getString("Titel"),rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre")});
                     }
+
+                } catch (Exception x) {
+                    System.out.println("An Error Occurred.. " + x.getMessage());
                 }
-
-                // Handle any errors that may have occurred.
-                catch (Exception ev) {
-                    ev.printStackTrace();
-                } finally {
-                    if (rs != null) try {
-                        rs.close();
-                    } catch (Exception ev) {
-                    }
-                    if (stmt != null) try {
-                        stmt.close();
-                    } catch (Exception ev) {
-                    }
-                    if (con != null) try {
-                        con.close();
-                    } catch (Exception ev) {
-                    }
-                    JScrollPane pg = new JScrollPane(jtbl);
-                    filmPanel.add(pg);
-                }
-
-
+                JScrollPane pg = new JScrollPane(jtbl);
+                filmPanel.add(pg);
             }
-        });
 
+        });
 
 
         filmPanel.add(menuBar, BorderLayout.NORTH);

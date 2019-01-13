@@ -23,29 +23,28 @@ public class SeriePanel {
         selectContent.setForeground(Color.white);
 
         JPanel menuBar = new JPanel();
-        menuBar.setBackground(Color.red);
+        menuBar.setBackground(new Color(229, 9, 20));
         menuBar.setForeground(Color.white);
 
         JComboBox contentBox = new JComboBox();
         DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
         //This content list is loaded from the database
+        contentModel.addElement("Breaking Bad");
         contentModel.addElement("Fargo");
-        contentModel.addElement("House of Cards");
         contentModel.addElement("Sherlock");
         contentBox.setModel(contentModel);
         contentBox.setBackground(Color.white);
 
-        JLabel seasonLabel = new JLabel("Seizoen: ");
-        seasonLabel.setForeground(Color.white);
-
+        //JLabel seasonLabel = new JLabel(" ");
+        //        seasonLabel.setForeground(Color.white);
 
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);
-        searchButton.setForeground(Color.red);
+        searchButton.setForeground(new Color(229, 9, 20));
 
         menuBar.add(selectContent, BorderLayout.WEST);
         menuBar.add(contentBox, BorderLayout.CENTER);
-        menuBar.add(seasonLabel, BorderLayout.CENTER);
+        //menuBar.add(seasonLabel, BorderLayout.CENTER);
         menuBar.add(searchButton, BorderLayout.EAST);
 
         JLabel titleLabel = new JLabel("-");
@@ -63,7 +62,7 @@ public class SeriePanel {
 
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
-        header.setForeground(Color.red);
+        header.setForeground(new Color(229, 9, 20));
 
         //Show the results
         searchButton.addActionListener(new ActionListener() {
@@ -82,8 +81,10 @@ public class SeriePanel {
                     con = DriverManager.getConnection(connectionUrl);
 
                     // SQL Statement.
-                    String SQL = "SELECT *" +
-                            "  FROM Aflevering, Serie WHERE Serie.SerieNaam = ?";
+                    String SQL = "SELECT * " +
+                            "FROM Aflevering " +
+                            "JOIN Serie ON Serie.SerieNaam = Aflevering.SerieNaam " +
+                            "WHERE Serie.SerieNaam = ?";
 
                     //stmt = con.createStatement();
                     stmt = con.prepareStatement(SQL);
@@ -94,10 +95,7 @@ public class SeriePanel {
 
                     // Adding the results to the labels.
                     while(rs.next()){
-                        String title = rs.getString("SerieNaam");
-                        int seasonAmount = rs.getInt("Seizoenen");
-                        titleLabel.setText("Informatie over " + title + " Aantal seizoenen: " + seasonAmount);
-                        model.addRow(new Object[]{rs.getString("SeizoenNummer"),rs.getString("Titel"),
+                        model.addRow(new Object[]{"Seizoen " + rs.getString("SeizoenNummer"),rs.getString("Titel"),
                                 rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"),
                                 rs.getString("Genre"), rs.getString("LijktOp")});
@@ -123,8 +121,6 @@ public class SeriePanel {
                     JScrollPane pg = new JScrollPane(jtbl);
                     seriePanel.add(pg);
                 }
-
-
             }
         });
 
