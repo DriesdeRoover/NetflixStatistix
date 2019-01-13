@@ -1,9 +1,6 @@
 package nl.avans.ui;
 
-import nl.avans.Repository.FilmPanel;
-import nl.avans.Repository.HomePanel;
-import nl.avans.Repository.SeriePanel;
-import nl.avans.Repository.WatchedContentPanel;
+import nl.avans.Repository.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +17,7 @@ public class UIComponents extends JPanel {
     public JPanel createFooter() {
         JPanel footerContainer = new JPanel(new BorderLayout());
         footerContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        JLabel footerTitle = new JLabel("Netflix Statistix versie 0.1", JLabel.LEFT);
+        JLabel footerTitle = new JLabel("Netflix Statistix versie 1.0", JLabel.LEFT);
         JLabel contributors = new JLabel("Informatica 2019 - Klas E - Dries de Roover | Wesley de Jonge", JLabel.RIGHT);
         footerTitle.setForeground(Color.white);
         contributors.setForeground(Color.white);
@@ -78,52 +75,9 @@ public class UIComponents extends JPanel {
         return seriePanel.createSeriePanel();
     }
 
-    public JTabbedPane createProfile() {
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-        //tabbedPane(new GridLayout(1,1));
-        ImageIcon icon = new ImageIcon();
-
-        JComponent seriePanel = new JPanel();
-        tabbedPane.addTab("Series", icon, seriePanel);
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-
-        JComponent filmPanel = new JPanel();
-        tabbedPane.addTab("Films", icon, filmPanel);
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-
-        JPanel profileMovieContainer = new JPanel(new GridBagLayout());
-        profileMovieContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        profileMovieContainer.setBackground(Color.white);
-        JLabel selectContent = new JLabel("Selecteer een profiel ");
-
-        JPanel profileSerieContainer = new JPanel(new GridBagLayout());
-        profileSerieContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        profileSerieContainer.setBackground(Color.white);
-
-        JComboBox contentBox = new JComboBox();
-        DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
-        //This content list is loaded from the database
-        contentModel.addElement("Hendrik");
-        contentModel.addElement("Jan");
-        contentModel.addElement("Kinderen");
-        contentBox.setModel(contentModel);
-
-        profileMovieContainer.add(selectContent, new GridBagConstraints(0, 0, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        profileMovieContainer.add(contentBox, new GridBagConstraints(1, 0, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-
-
-        //profileContainer.add(selectContent);
-        //profileContainer.add(contentBox);
-        filmPanel.add(profileMovieContainer);
-        seriePanel.add(profileMovieContainer);
-
-        tabbedPane.addTab("Films", icon, filmPanel);
-        tabbedPane.addTab("Series", icon, seriePanel);
-
-        return tabbedPane;
+    public JPanel createProfile() {
+        Profile profilePanel = new Profile();
+        return profilePanel.createProfilePanel();
     }
 
     public JPanel createWatchedContent() {
