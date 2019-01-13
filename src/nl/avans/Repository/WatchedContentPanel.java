@@ -18,9 +18,6 @@ public class WatchedContentPanel extends JPanel {
 
     public JPanel createWatchPanel() {
         JPanel watchPanel = new JPanel(new BorderLayout());
-        //JPanel watchContainer = new JPanel(new BorderLayout());
-        //        watchContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        //        watchContainer.setBackground(Color.white);
         JLabel selectContent = new JLabel("Selecteer een profiel");
         selectContent.setForeground(Color.white);
 
