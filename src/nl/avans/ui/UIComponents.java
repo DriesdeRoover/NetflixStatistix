@@ -1,6 +1,7 @@
 package nl.avans.ui;
 
 import nl.avans.Repository.FilmPanel;
+import nl.avans.Repository.SeriePanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -57,14 +58,8 @@ public class UIComponents extends JPanel {
     }
 
     public JPanel createSeries() {
-        JPanel serieContainer = new JPanel(new GridBagLayout());
-        serieContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        serieContainer.setBackground(Color.red);
-        JLabel selectContent = new JLabel("Selecteer een serie", JLabel.LEFT);
-
-        serieContainer.add(selectContent);
-
-        return serieContainer;
+        SeriePanel seriePanel = new SeriePanel();
+        return seriePanel.createSeriePanel();
     }
 
     public JTabbedPane createProfile() {
