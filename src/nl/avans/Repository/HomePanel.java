@@ -8,6 +8,7 @@ public class HomePanel extends JPanel {
 
 
     public JPanel createHomePanel(){
+        //This methods creates a logo for the homepage from the netflix.png file
         JPanel homePanel = new JPanel(new BorderLayout());
         homePanel.setBackground(Color.white);
 

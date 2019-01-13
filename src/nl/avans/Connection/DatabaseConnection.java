@@ -27,6 +27,7 @@ public class DatabaseConnection {
         Statement statement;
 
         try {
+            //Create a SQL statement from a given query
             statement = connection.createStatement();
             resultSet = statement.executeQuery(givenQuery);
             return resultSet;
@@ -36,27 +37,5 @@ public class DatabaseConnection {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static ResultSet getDataWithPreparedStatement(String givenQuery)   {
-        ResultSet resultSet;
-        PreparedStatement statement;
-        JComboBox contentBox = new JComboBox();
-
-        try {
-            statement = connection.prepareStatement(givenQuery);
-            statement.setString(1, (String) contentBox.getSelectedItem());
-            resultSet = statement.executeQuery();
-            return resultSet;
-        }
-
-        catch (Exception e)   {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-       public static void disconnect()    {         // cuts off the connection
-        if (connection != null) try { connection.close(); } catch(Exception e)          {/*VUL ACTIE IN*/}
     }
 }

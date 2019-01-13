@@ -29,8 +29,8 @@ public class UIComponents extends JPanel {
     }
 
     public JTabbedPane createTabs() {
+        //This method creates a tabbed layout
         JTabbedPane tabbedPane = new JTabbedPane();
-        //tabbedPane(new GridLayout(1,1));
         ImageIcon icon = new ImageIcon();
 
         tabbedPane.addTab("Netflix Statistix - Home", icon, createHome());
@@ -50,9 +50,6 @@ public class UIComponents extends JPanel {
             tabbedPane.setBackgroundAt(i, Color.white);
             tabbedPane.setForegroundAt(i, new Color(229, 9, 20));
         }
-
-        //UIManager.put("TabbedPane.selectedTabBackground", new Color(229, 9, 20));
-        //        UIManager.put("TabbedPane.selectedTabForeground", Color.white);
 
         //The following line enables to use scrolling tabs.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -83,12 +80,6 @@ public class UIComponents extends JPanel {
     public JPanel createWatchedContent() {
         WatchedContentPanel watched = new WatchedContentPanel();
         return watched.createWatchPanel();
-    }
-
-
-    public JLabel line() {
-        JLabel line = new JLabel("                                               ");
-        return line;
     }
 
 }
