@@ -2,6 +2,7 @@ package nl.avans.ui;
 
 import nl.avans.Repository.FilmPanel;
 import nl.avans.Repository.SeriePanel;
+import nl.avans.Repository.WatchedContentPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -111,84 +112,8 @@ public class UIComponents extends JPanel {
     }
 
     public JPanel createWatchedContent() {
-        JPanel contentContainer = new JPanel(new GridBagLayout());
-        contentContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
-        contentContainer.setBackground(Color.white);
-        JLabel selectContent = new JLabel("Selecteer serie", JLabel.LEFT);
-
-        JComboBox contentBox = new JComboBox();
-        DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
-        //This content list is loaded from the database
-        contentModel.addElement("House of Cards");
-        contentModel.addElement("Sherlock");
-        contentModel.addElement("Fargo");
-        contentBox.setModel(contentModel);
-
-        JButton okButton = new JButton("OK");
-        //select.add(contentBox, BorderLayout.WEST);
-
-        //Watch progress of the overall serie
-        int perc = 10;
-        JLabel averageWatched = new JLabel("Gemiddeld bekeken per aflevering:");
-        JProgressBar progressBar = new JProgressBar();
-        progressBar.setValue(perc);
-        progressBar.setStringPainted(true);
-
-        //Watch progress of watched episodes
-        int episodePerc = 67;
-        JLabel watchedEpisodeLabel = new JLabel("Selecteer een serie en druk op 'OK'");
-        System.out.println(contentModel.getSelectedItem());
-
-
-        JPanel contentPanel = new JPanel();
-        JLabel watchedEpisodeTitle = new JLabel("Seizoen 1, aflevering 1: Er was eens een Swing");
-        JProgressBar episodeProgress = new JProgressBar();
-        episodeProgress.setValue(episodePerc);
-        episodeProgress.setStringPainted(true);
-        contentPanel.add(watchedEpisodeLabel);
-        contentPanel.add(episodeProgress);
-        contentPanel.add(episodeProgress);
-
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                watchedEpisodeLabel.setText("Bekeken aflevering van " + contentModel.getSelectedItem() + ":");
-
-            }
-        });
-
-        //Adding the components
-        contentContainer.add(selectContent, new GridBagConstraints(0, 0, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        contentContainer.add(contentBox, new GridBagConstraints(1, 0, 1, 1, 0.3, 0.0,
-                GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-
-        //add the OK button
-        contentContainer.add(okButton, new GridBagConstraints(1, 1, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        contentContainer.add(averageWatched, new GridBagConstraints(0, 1, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(15, 0, 0, 50), 0, 0));
-        contentContainer.add(progressBar, new GridBagConstraints(0, 2, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-
-        //adding an empty line
-        contentContainer.add(line(), new GridBagConstraints(0, 3, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-
-        //adding the watched episode content
-        contentContainer.add(watchedEpisodeLabel, new GridBagConstraints(0, 4, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-        contentContainer.add(watchedEpisodeTitle, new GridBagConstraints(0, 5, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-        contentContainer.add(episodeProgress, new GridBagConstraints(0, 6, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-
-        //adding an empty line
-        contentContainer.add(line(), new GridBagConstraints(0, 7, 1, 1, 0.3, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-
-        contentContainer.add(new JScrollPane());
-        return contentContainer;
+        WatchedContentPanel watched = new WatchedContentPanel();
+        return watched.createWatchPanel();
     }
 
 

@@ -1,10 +1,12 @@
 package nl.avans.Connection;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Connection {
+
 
     public ResultSet Connection(String query) {
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
