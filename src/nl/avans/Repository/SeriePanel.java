@@ -2,6 +2,8 @@ package nl.avans.Repository;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,13 +38,6 @@ public class SeriePanel {
         JLabel seasonLabel = new JLabel("Seizoen: ");
         seasonLabel.setForeground(Color.white);
 
-       // JComboBox seasonContentBox = new JComboBox();
-        //        DefaultComboBoxModel seasonContentModel = new DefaultComboBoxModel();
-        //        seasonContentModel.addElement("1");
-        //        seasonContentModel.addElement("2");
-        //        seasonContentModel.addElement("3");
-        //        seasonContentBox.setModel(seasonContentModel);
-        //        seasonContentBox.setBackground(Color.white);
 
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);
@@ -51,15 +46,24 @@ public class SeriePanel {
         menuBar.add(selectContent, BorderLayout.WEST);
         menuBar.add(contentBox, BorderLayout.CENTER);
         menuBar.add(seasonLabel, BorderLayout.CENTER);
-        //menuBar.add(seasonContentBox, BorderLayout.CENTER);
         menuBar.add(searchButton, BorderLayout.EAST);
 
+        JLabel titleLabel = new JLabel("-");
 
-        JLabel titleLabel = new JLabel(" ");
-        JLabel durationLabel = new JLabel(" ");
-        JLabel ageLabel = new JLabel(" ");
-        JLabel languageLabel = new JLabel(" ");
-        JLabel genreLabel = new JLabel(" ");
+        DefaultTableModel model = new DefaultTableModel();
+        JTable jtbl = new JTable(model);
+        model.addColumn("Seizoen");
+        model.addColumn("Titel");
+        model.addColumn("Tijdsduur");
+        model.addColumn("Leeftijdsindicatie");
+        model.addColumn("Gesproken Taal");
+        model.addColumn("Genre");
+        model.addColumn("Lijkt op");
+        jtbl.setGridColor(Color.white);
+
+        JTableHeader header = jtbl.getTableHeader();
+        header.setBackground(Color.white);
+        header.setForeground(Color.red);
 
         //Show the results
         searchButton.addActionListener(new ActionListener() {
@@ -78,37 +82,25 @@ public class SeriePanel {
                     con = DriverManager.getConnection(connectionUrl);
 
                     // SQL Statement.
-                    String SQL = "SELECT * FROM Aflevering WHERE SerieNaam = ?";
+                    String SQL = "SELECT *" +
+                            "  FROM Aflevering, Serie WHERE Serie.SerieNaam = ?";
 
                     //stmt = con.createStatement();
                     stmt = con.prepareStatement(SQL);
-                    stmt.setString(1, (String) contentBox.getSelectedItem());
+                    stmt.setString(1, (String)contentBox.getSelectedItem());
                     // Execute the SQL statement
                     rs = stmt.executeQuery();
-                    //rs = stmt.executeQuery();
 
 
                     // Adding the results to the labels.
-                    while (rs.next()) {
-
-                        int contentId = rs.getInt("ContentId");
-                        String Titel = rs.getString("Titel");
-                        String tijdsDuur = rs.getString("Tijdsduur");
-                        String season = rs.getString("SeizoenId");
-                        //String leeftijdsIndicatie = rs.getString("LeeftijdsIndicatie");
-                        //tring taal = rs.getString("Taal");
-                        //String genre = rs.getString("Genre");
-
-                        //int progress = rs.getInt("BekekenContent_PercentageBekeken");
-
-
-                        titleLabel.setText("<html><p>" + contentBox.getSelectedItem() + ": Seizoen: " +  season + ": </p>" + "<p>" + Titel + "</p></html>");
-                        durationLabel.setText("Speelduur:  " + tijdsDuur + " min");
-                        //ageLabel.setText("Leeftijdsindicatie:  " + leeftijdsIndicatie);
-                        //languageLabel.setText("Gesproken taal:  " + taal);
-                        //genreLabel.setText("Genre:  " + genre);
-                        //movieProgress.setValue(progress);
-
+                    while(rs.next()){
+                        String title = rs.getString("SerieNaam");
+                        int seasonAmount = rs.getInt("Seizoenen");
+                        titleLabel.setText("Informatie over " + title + " Aantal seizoenen: " + seasonAmount);
+                        model.addRow(new Object[]{rs.getString("SeizoenNummer"),rs.getString("Titel"),
+                                rs.getString("Tijdsduur"),
+                                rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"),
+                                rs.getString("Genre"), rs.getString("LijktOp")});
                     }
                 }
 
@@ -128,27 +120,18 @@ public class SeriePanel {
                         con.close();
                     } catch (Exception ev) {
                     }
+                    JScrollPane pg = new JScrollPane(jtbl);
+                    seriePanel.add(pg);
                 }
 
 
             }
         });
 
-        // filmContainer.add(menuBar, new GridBagConstraints( 0, 0, 1, 1, 0.3, 0.0,
-        //                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-        serieContainer.add(titleLabel, new GridBagConstraints(2, 0, 0, 1, 0.3, 0.1,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        serieContainer.add(durationLabel, new GridBagConstraints(0, 1, 0, 1, 0.3, 0.1,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        serieContainer.add(ageLabel, new GridBagConstraints(0, 2, 0, 1, 0.3, 0.1,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        serieContainer.add(languageLabel, new GridBagConstraints(0, 3, 0, 1, 0.3, 0.1,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
-        serieContainer.add(genreLabel, new GridBagConstraints(0, 4, 0, 1, 0.3, 0.1,
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 50), 0, 0));
 
         seriePanel.add(menuBar, BorderLayout.NORTH);
-        seriePanel.add(serieContainer, BorderLayout.CENTER);
+        seriePanel.add(titleLabel, BorderLayout.CENTER);
+        seriePanel.add(jtbl, BorderLayout.SOUTH);
 
         return seriePanel;
     }

@@ -24,11 +24,10 @@ public class MainFrame extends JFrame {
         content = new UIComponents();
 
         frame.setLayout(new BorderLayout());
-        //frame.add(menu.createMenu(), BorderLayout.WEST);
         frame.add(content.createWatchedSeriePanel(), BorderLayout.CENTER);
         frame.add(footer.createFooter(), BorderLayout.SOUTH);
 
-        frame.setSize(600, 500);
+        frame.setSize(800, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
