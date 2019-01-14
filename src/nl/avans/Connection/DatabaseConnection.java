@@ -7,7 +7,7 @@ public class DatabaseConnection {
     private static java.sql.Connection connection;           // DatabaseConnection-data
 
     public static void connect()   {                // Responsible for establishing a connection
-        String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=Netflix;integratedSecurity=true;";
+        String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=NetflixStatistix;integratedSecurity=true;";
         connection = null;
 
         try {
