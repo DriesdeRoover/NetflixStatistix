@@ -9,6 +9,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
 public class FilmPanel extends JPanel {
@@ -18,7 +19,7 @@ public class FilmPanel extends JPanel {
         JPanel filmContainer = new JPanel(new GridBagLayout());
         filmContainer.setBorder(new EmptyBorder(3, 10, 3, 10));
         filmContainer.setBackground(Color.white);
-        JLabel selectContent = new JLabel("Hieronder staat de informatie over de bekende films weergegeven");
+        JLabel selectContent = new JLabel("Netflix Statistix - Films en bijbehorende informatie");
         selectContent.setForeground(Color.white);
 
         JPanel menuBar = new JPanel();
@@ -54,29 +55,30 @@ public class FilmPanel extends JPanel {
 
 
         //Show the results
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+
                 DatabaseConnection.connect();
                 try {
                     ResultSet rs = DatabaseConnection.getData("SELECT * FROM Film");
+                    //ResultSet r = DatabaseConnection.getMetaData().getColumns(null, null, "Serie", null);
+                    //                    while (r.next()) {
+                    //                        String name = r.getString("COLUMN_NAME");
+                    //                        model.addColumn(name);
+                    //                    }
                     while (rs.next()) {
                         model.addRow(new Object[]{rs.getString("Titel"), rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre")});
                     }
+
 
                 } catch (Exception ex) {
                     System.out.println("An Error Occurred: " + ex.getMessage());
                 }
                 JScrollPane pg = new JScrollPane(jtbl);
                 filmPanel.add(pg);
-            }
+                DatabaseConnection.disconnect();
 
-        });
-
-
-        filmPanel.add(menuBar, BorderLayout.NORTH);
-        filmPanel.add(jtbl, BorderLayout.CENTER);
+                filmPanel.add(menuBar, BorderLayout.NORTH);
+                filmPanel.add(jtbl, BorderLayout.CENTER);
 
         return filmPanel;
     }
