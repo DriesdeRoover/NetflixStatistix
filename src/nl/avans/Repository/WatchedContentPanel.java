@@ -25,14 +25,21 @@ public class WatchedContentPanel extends JPanel {
         menuBar.setBackground(new Color(229, 9, 20));
         menuBar.setForeground(Color.white);
 
+
         JComboBox contentBox = new JComboBox();
-        DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
-        //This content list is loaded from the database
-        contentModel.addElement("Greta");
-        contentModel.addElement("Dries");
-        contentModel.addElement("Wesley");
-        contentBox.setModel(contentModel);
         contentBox.setBackground(Color.white);
+        //This content list is loaded from the database
+        DatabaseConnection.connect();
+        try {
+            ResultSet rs = DatabaseConnection.getData("SELECT * FROM Profiel");
+            while(rs.next()){
+                contentBox.addItem(rs.getString("ProfielNaam"));
+            }
+
+        } catch (Exception x) {
+            System.out.println("An Error Occurred.. " + x.getMessage());
+        }
+
 
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);

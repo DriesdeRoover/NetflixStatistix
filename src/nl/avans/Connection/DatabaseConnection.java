@@ -2,11 +2,12 @@ package nl.avans.Connection;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseConnection {
     private static java.sql.Connection connection;           // DatabaseConnection-data
 
-    public static void connect()   {                // Responsible for establishing a connection
+    public static void connect() {                // Responsible for establishing a connection
         String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=NetflixStatistix;integratedSecurity=true;";
         connection = null;
 
@@ -15,14 +16,12 @@ public class DatabaseConnection {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Maak de verbinding met de database.
             connection = DriverManager.getConnection(connectionUrl);
-        }
-
-        catch (Exception e)   {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static ResultSet getData(String givenQuery)   {
+    public static ResultSet getData(String givenQuery) {
         ResultSet resultSet;
         Statement statement;
 
@@ -31,9 +30,7 @@ public class DatabaseConnection {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(givenQuery);
             return resultSet;
-        }
-
-        catch (Exception e)   {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -1,5 +1,7 @@
 package nl.avans.Repository;
 
+import nl.avans.Connection.DatabaseConnection;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -26,18 +28,22 @@ public class SeriePanel {
         menuBar.setBackground(new Color(229, 9, 20));
         menuBar.setForeground(Color.white);
 
+
         JComboBox contentBox = new JComboBox();
-        DefaultComboBoxModel contentModel = new DefaultComboBoxModel();
+
         //This content list is loaded from the database
-        contentModel.addElement("Breaking Bad");
-        contentModel.addElement("Fargo");
-        contentModel.addElement("Sherlock");
-        contentBox.setModel(contentModel);
+        DatabaseConnection.connect();
+        try {
+            ResultSet rs = DatabaseConnection.getData("SELECT * FROM Serie");
+            while(rs.next()){
+                contentBox.addItem(rs.getString("SerieNaam"));
+            }
+
+        } catch (Exception x) {
+            System.out.println("An Error Occurred.. " + x.getMessage());
+        }
+
         contentBox.setBackground(Color.white);
-
-        //JLabel seasonLabel = new JLabel(" ");
-        //        seasonLabel.setForeground(Color.white);
-
         JButton searchButton = new JButton("Zoek");
         searchButton.setBackground(Color.white);
         searchButton.setForeground(new Color(229, 9, 20));
