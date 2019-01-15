@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 
 public class Profile extends JPanel {
 
@@ -34,8 +33,6 @@ public class Profile extends JPanel {
 
         JProgressBar movieProgress = new JProgressBar();
         movieProgress.setStringPainted(true);
-
-
 
 
         //Show the results

@@ -1,18 +1,15 @@
 package nl.avans.Repository;
 
-import com.sun.corba.se.impl.orb.DataCollectorBase;
 import nl.avans.Connection.DatabaseConnection;
-import nl.avans.ui.MainFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
+import java.sql.ResultSet;
 
 public class FilmPanel extends JPanel {
 
@@ -63,8 +60,8 @@ public class FilmPanel extends JPanel {
                 DatabaseConnection.connect();
                 try {
                     ResultSet rs = DatabaseConnection.getData("SELECT * FROM Film");
-                    while(rs.next()){
-                        model.addRow(new Object[]{rs.getString("Titel"),rs.getString("Tijdsduur"),
+                    while (rs.next()) {
+                        model.addRow(new Object[]{rs.getString("Titel"), rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre")});
                     }
 

@@ -1,8 +1,8 @@
 package nl.avans.Connection;
 
-import javax.swing.*;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class DatabaseConnection {
     private static java.sql.Connection connection;           // DatabaseConnection-data

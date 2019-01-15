@@ -31,7 +31,7 @@ public class WatchedContentPanel extends JPanel {
         DatabaseConnection.connect();
         try {
             ResultSet rs = DatabaseConnection.getData("SELECT * FROM Profiel");
-            while(rs.next()){
+            while (rs.next()) {
                 contentBox.addItem(rs.getString("ProfielNaam"));
             }
 
@@ -94,9 +94,9 @@ public class WatchedContentPanel extends JPanel {
 
 
                     // Adding the results to the labels.
-                        while(rs.next()){
-                            model.addRow(new Object[]{rs.getString("Titel"),rs.getString("PercentageBekeken"),
-                                    rs.getString("LaatstBekeken"), rs.getString("ProfielNaam")});
+                    while (rs.next()) {
+                        model.addRow(new Object[]{rs.getString("Titel"), rs.getString("PercentageBekeken"),
+                                rs.getString("LaatstBekeken"), rs.getString("ProfielNaam")});
                     }
                 }
 
@@ -123,7 +123,6 @@ public class WatchedContentPanel extends JPanel {
 
             }
         });
-
 
 
         watchPanel.add(menuBar, BorderLayout.NORTH);

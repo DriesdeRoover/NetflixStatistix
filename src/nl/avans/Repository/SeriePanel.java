@@ -35,7 +35,7 @@ public class SeriePanel {
         DatabaseConnection.connect();
         try {
             ResultSet rs = DatabaseConnection.getData("SELECT * FROM Serie");
-            while(rs.next()){
+            while (rs.next()) {
                 contentBox.addItem(rs.getString("SerieNaam"));
             }
 
@@ -93,14 +93,14 @@ public class SeriePanel {
 
                     //stmt = con.createStatement();
                     stmt = con.prepareStatement(SQL);
-                    stmt.setString(1, (String)contentBox.getSelectedItem());
+                    stmt.setString(1, (String) contentBox.getSelectedItem());
                     // Execute the SQL statement
                     rs = stmt.executeQuery();
 
 
                     // Adding the results to the labels.
-                    while(rs.next()){
-                        model.addRow(new Object[]{"Seizoen " + rs.getString("SeizoenNummer"),rs.getString("Titel"),
+                    while (rs.next()) {
+                        model.addRow(new Object[]{"Seizoen " + rs.getString("SeizoenNummer"), rs.getString("Titel"),
                                 rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"),
                                 rs.getString("Genre"), rs.getString("LijktOp")});

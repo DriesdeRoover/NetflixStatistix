@@ -1,13 +1,12 @@
 package nl.avans.Repository;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
 public class HomePanel extends JPanel {
 
 
-    public JPanel createHomePanel(){
+    public JPanel createHomePanel() {
         //This methods creates a logo for the homepage from the netflix.png file
         JPanel homePanel = new JPanel(new BorderLayout());
         homePanel.setBackground(Color.white);

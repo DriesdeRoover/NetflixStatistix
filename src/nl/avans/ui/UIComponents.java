@@ -5,8 +5,6 @@ import nl.avans.Repository.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class UIComponents extends JPanel {
@@ -46,7 +44,7 @@ public class UIComponents extends JPanel {
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
         //Setting the background color of the tabs to red and the foreground to white.
-        for (int i = 0; i < tabbedPane.getTabCount(); i++){
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
             tabbedPane.setBackgroundAt(i, Color.white);
             tabbedPane.setForegroundAt(i, new Color(229, 9, 20));
         }
@@ -57,7 +55,7 @@ public class UIComponents extends JPanel {
         return tabbedPane;
     }
 
-    public JPanel createHome(){
+    public JPanel createHome() {
         HomePanel homePanel = new HomePanel();
         return homePanel.createHomePanel();
     }
