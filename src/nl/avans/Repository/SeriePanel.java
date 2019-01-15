@@ -69,6 +69,7 @@ public class SeriePanel {
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
         header.setForeground(new Color(229, 9, 20));
+        jtbl.setEnabled(false);
 
         //Show the results
         searchButton.addActionListener(new ActionListener() {

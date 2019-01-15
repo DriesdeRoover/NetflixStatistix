@@ -3,7 +3,6 @@ package nl.avans.Repository;
 import nl.avans.Connection.DatabaseConnection;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -61,6 +60,7 @@ public class WatchedContentPanel extends JPanel {
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
         header.setForeground(new Color(229, 9, 20));
+        jtbl.setEnabled(false);
 
         //Show the results
         searchButton.addActionListener(new ActionListener() {

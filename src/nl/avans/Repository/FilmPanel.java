@@ -2,6 +2,7 @@ package nl.avans.Repository;
 
 import com.sun.corba.se.impl.orb.DataCollectorBase;
 import nl.avans.Connection.DatabaseConnection;
+import nl.avans.ui.MainFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -51,6 +52,7 @@ public class FilmPanel extends JPanel {
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
         header.setForeground(new Color(229, 9, 20));
+        jtbl.setEnabled(false);
 
 
         //Show the results
