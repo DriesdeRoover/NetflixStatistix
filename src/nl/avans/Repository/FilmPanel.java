@@ -40,6 +40,7 @@ public class FilmPanel extends JPanel {
         JProgressBar movieProgress = new JProgressBar();
         movieProgress.setStringPainted(true);
 
+        //Creating the table to display data from the database
         DefaultTableModel model = new DefaultTableModel();
         JTable jtbl = new JTable(model);
         model.addColumn("Titel");

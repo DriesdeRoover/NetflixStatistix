@@ -50,11 +50,9 @@ public class SeriePanel {
 
         menuBar.add(selectContent, BorderLayout.WEST);
         menuBar.add(contentBox, BorderLayout.CENTER);
-        //menuBar.add(seasonLabel, BorderLayout.CENTER);
         menuBar.add(searchButton, BorderLayout.EAST);
 
-        JLabel titleLabel = new JLabel("-");
-
+        //Creating the table to display data from the database
         DefaultTableModel model = new DefaultTableModel();
         JTable jtbl = new JTable(model);
         model.addColumn("Seizoen");
@@ -133,8 +131,7 @@ public class SeriePanel {
 
 
         seriePanel.add(menuBar, BorderLayout.NORTH);
-        seriePanel.add(titleLabel, BorderLayout.CENTER);
-        seriePanel.add(jtbl, BorderLayout.SOUTH);
+        seriePanel.add(jtbl, BorderLayout.CENTER);
 
         return seriePanel;
     }

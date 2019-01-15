@@ -48,6 +48,7 @@ public class WatchedContentPanel extends JPanel {
         menuBar.add(contentBox, BorderLayout.CENTER);
         menuBar.add(searchButton, BorderLayout.EAST);
 
+        //Creating the table to display data from the database
         DefaultTableModel model = new DefaultTableModel();
         JTable jtbl = new JTable(model);
         model.addColumn("Titel");
