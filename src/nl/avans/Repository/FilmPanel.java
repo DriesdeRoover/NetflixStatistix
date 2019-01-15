@@ -65,8 +65,8 @@ public class FilmPanel extends JPanel {
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre")});
                     }
 
-                } catch (Exception x) {
-                    System.out.println("An Error Occurred.. " + x.getMessage());
+                } catch (Exception ex) {
+                    System.out.println("An Error Occurred: " + ex.getMessage());
                 }
                 JScrollPane pg = new JScrollPane(jtbl);
                 filmPanel.add(pg);

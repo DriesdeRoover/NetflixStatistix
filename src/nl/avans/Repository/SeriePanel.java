@@ -39,8 +39,8 @@ public class SeriePanel {
                 contentBox.addItem(rs.getString("SerieNaam"));
             }
 
-        } catch (Exception x) {
-            System.out.println("An Error Occurred.. " + x.getMessage());
+        } catch (Exception ex) {
+            System.out.println("An Error Occurred: " + ex.getMessage());
         }
 
         contentBox.setBackground(Color.white);
