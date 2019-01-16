@@ -27,12 +27,12 @@ public class FilmPanel extends JPanel {
         menuBar.setForeground(Color.white);
 
 
-        JButton searchButton = new JButton("Zoek");
-        searchButton.setBackground(Color.white);
-        searchButton.setForeground(new Color(229, 9, 20));
+      //  JButton searchButton = new JButton("Zoek");
+        //        searchButton.setBackground(Color.white);
+        //        searchButton.setForeground(new Color(229, 9, 20));
 
         menuBar.add(selectContent, BorderLayout.WEST);
-        menuBar.add(searchButton, BorderLayout.EAST);
+        //menuBar.add(searchButton, BorderLayout.EAST);
 
 
         JProgressBar movieProgress = new JProgressBar();
@@ -59,11 +59,12 @@ public class FilmPanel extends JPanel {
                 DatabaseConnection.connect();
                 try {
                     ResultSet rs = DatabaseConnection.getData("SELECT * FROM Film");
-                    //ResultSet r = DatabaseConnection.getMetaData().getColumns(null, null, "Serie", null);
-                    //                    while (r.next()) {
-                    //                        String name = r.getString("COLUMN_NAME");
-                    //                        model.addColumn(name);
-                    //                    }
+                    //ResultSet r = DatabaseConnection.getMetaData().getColumns(null, null, "Film", null);
+                    //                                        while (r.next()) {
+                    //                                            String name = r.getString("COLUMN_NAME");
+                    //                                            model.addColumn(name);
+                    //                                        }
+
                     while (rs.next()) {
                         model.addRow(new Object[]{rs.getString("Titel"), rs.getString("Tijdsduur"),
                                 rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre")});
@@ -78,7 +79,7 @@ public class FilmPanel extends JPanel {
                 DatabaseConnection.disconnect();
 
                 filmPanel.add(menuBar, BorderLayout.NORTH);
-                filmPanel.add(jtbl, BorderLayout.CENTER);
+                //filmPanel.add(jtbl, BorderLayout.CENTER);
 
         return filmPanel;
     }

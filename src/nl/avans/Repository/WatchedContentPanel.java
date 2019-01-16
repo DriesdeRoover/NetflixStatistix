@@ -8,12 +8,10 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class WatchedContentPanel extends JPanel {
+    private DatabaseRepository databaseRepository;
 
     public JPanel createWatchPanel() {
         JPanel watchPanel = new JPanel(new BorderLayout());
@@ -28,16 +26,9 @@ public class WatchedContentPanel extends JPanel {
         JComboBox contentBox = new JComboBox();
         contentBox.setBackground(Color.white);
         //This content list is loaded from the database
-        DatabaseConnection.connect();
-        try {
-            ResultSet rs = DatabaseConnection.getData("SELECT * FROM Profiel");
-            while (rs.next()) {
-                contentBox.addItem(rs.getString("ProfielNaam"));
-            }
+        databaseRepository = new DatabaseRepository();
 
-        } catch (Exception x) {
-            System.out.println("An Error Occurred.. " + x.getMessage());
-        }
+        contentBox.setModel(new DefaultComboBoxModel(databaseRepository.getProfileName().toArray()));
 
 
         JButton searchButton = new JButton("Zoek");
@@ -58,6 +49,9 @@ public class WatchedContentPanel extends JPanel {
 
         jtbl.setGridColor(Color.white);
 
+        JScrollPane pg = new JScrollPane(jtbl);
+        watchPanel.add(pg);
+
         JTableHeader header = jtbl.getTableHeader();
         header.setBackground(Color.white);
         header.setForeground(new Color(229, 9, 20));
@@ -71,7 +65,7 @@ public class WatchedContentPanel extends JPanel {
                 // The connection URL can be different
                 String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=Netflix;integratedSecurity=true;";
                 Connection con = null;
-                PreparedStatement stmt = null;
+                Statement stmt = null;
                 ResultSet rs = null;
 
                 try {
@@ -84,13 +78,13 @@ public class WatchedContentPanel extends JPanel {
                     String SQL = "SELECT * " +
                             "FROM BekekenContent " +
                             "JOIN Content ON Content.ContentId = BekekenContent.ContentId " +
-                            "WHERE BekekenContent.ProfielNaam = ?";
+                            "WHERE BekekenContent.ProfielNaam = " + contentBox.getSelectedItem();
 
-                    //stmt = con.createStatement();
-                    stmt = con.prepareStatement(SQL);
-                    stmt.setString(1, (String) contentBox.getSelectedItem());
+                    stmt = con.createStatement();
+                    //stmt = con.prepareStatement(SQL);
+                    //stmt.setString(1, (String) contentBox.getSelectedItem());
                     // Execute the SQL statement
-                    rs = stmt.executeQuery();
+                    rs = stmt.executeQuery(SQL);
 
 
                     // Adding the results to the labels.
@@ -126,7 +120,6 @@ public class WatchedContentPanel extends JPanel {
 
 
         watchPanel.add(menuBar, BorderLayout.NORTH);
-        watchPanel.add(jtbl, BorderLayout.CENTER);
 
         return watchPanel;
     }
