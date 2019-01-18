@@ -1,6 +1,7 @@
-package nl.avans.Repository;
+package nl.avans.UserInterfacePanels;
 
 import nl.avans.Connection.DatabaseConnection;
+import nl.avans.Repository.DatabaseRepository;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,10 +10,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class SeriePanel {
@@ -73,15 +71,46 @@ public class SeriePanel {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                model = (DefaultTableModel) jtbl.getModel();
 
-                String[] cols = new String[]{"Titel","Tijdsduur", "Leeftijdsindicatie", "Gesproken Taal", "Genre", "Lijkt Op"};
-                Object[][] data = new Object[][]{databaseRepository.getAllEpisodeData(getComboboxValue()).toArray()};
-                System.out.println(databaseRepository.getAllEpisodeData(getComboboxValue()).toString());
+                //String[] cols = new String[]{"Titel","Tijdsduur", "Leeftijdsindicatie", "Gesproken Taal", "Genre", "Lijkt Op"};
+                Object c =  databaseRepository.getAllEpisodeData(getComboboxValue()).toArray();
+
+                //ArrayList<Episode> list = new ArrayList();
+                Object[][] rowData = new Object[6][6];
+
+                for (int i = 0; i < databaseRepository.getAllEpisodeData(getComboboxValue()).size(); i++){
+
+                    rowData[0][0] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                    rowData[1][1] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                    rowData[2][2] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                    rowData[3][3] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                    rowData[4][4] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                    rowData[5][5] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+
+                    model.addRow(rowData);
+                }
 
 
+                //Object[][] data = c[5][6];
+                //Object[][] data = new Object[][]{databaseRepository.getAllEpisodeData(getComboboxValue()).toArray()};
+                    System.out.println(databaseRepository.getAllEpisodeData(getComboboxValue()).toString());
 
-                jtbl.setModel(new DefaultTableModel(data, cols));
-                //jtbl.setModel(model);
+                    //for (int i = 0; i < databaseRepository.getAllEpisodeData(getComboboxValue()).size(); i++){
+                //                        String title = episode.getTitle();
+                //                        String duration = episode.getDuration();
+                //                        String ageInd = episode.getAgeInd();
+                //                        String language = episode.getLanguage();
+                //                        String genre = episode.getGenre();
+                //                        String looksLike = episode.getLooksLike();
+                //
+                //                        Object[] data = {title, duration, ageInd, language, genre, looksLike};
+                //                        model.add(data);
+                //
+                //                    }
+
+
+                jtbl.setModel(model);
                 DatabaseConnection.disconnect();
 
             }

@@ -1,6 +1,6 @@
 package nl.avans.ui;
 
-import nl.avans.Repository.*;
+import nl.avans.UserInterfacePanels.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

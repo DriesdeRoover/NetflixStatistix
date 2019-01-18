@@ -1,4 +1,4 @@
-package nl.avans.Repository;
+package nl.avans.UserInterfacePanels;
 
 import javax.swing.*;
 import java.awt.*;

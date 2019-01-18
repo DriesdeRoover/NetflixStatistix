@@ -1,4 +1,4 @@
-package nl.avans.Repository;
+package nl.avans.UserInterfacePanels;
 
 import nl.avans.Connection.DatabaseConnection;
 

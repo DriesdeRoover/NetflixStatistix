@@ -1,6 +1,7 @@
-package nl.avans.Repository;
+package nl.avans.UserInterfacePanels;
 
 import nl.avans.Connection.DatabaseConnection;
+import nl.avans.Repository.DatabaseRepository;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

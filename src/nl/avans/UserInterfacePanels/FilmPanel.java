@@ -1,4 +1,4 @@
-package nl.avans.Repository;
+package nl.avans.UserInterfacePanels;
 
 import nl.avans.Connection.DatabaseConnection;
 
@@ -54,7 +54,7 @@ public class FilmPanel extends JPanel {
         jtbl.setEnabled(false);
 
 
-        //Show the results
+        //Show the results in the table
 
                 DatabaseConnection.connect();
                 try {
