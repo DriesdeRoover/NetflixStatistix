@@ -46,6 +46,9 @@ public class DatabaseRepository {
         return profileList;
     }
 
+
+    //This code retieves all the data from table: Aflevering. Due to lack of time and a table that won't work in the way
+    //we had hoped, this code is not used.
     public ArrayList<Episode> getAllEpisodeData(String name){
         ArrayList<Episode> episodeList = new ArrayList<>();
         DatabaseConnection.connect();
@@ -68,6 +71,8 @@ public class DatabaseRepository {
         return episodeList;
     }
 
+    //This code retieves all the data from table: Film. Due to lack of time and a table that won't work in the way
+    //we had hoped, this code is not used.
     public ArrayList<String> getFilms() {
         ArrayList<String> filmList = new ArrayList<>();
 

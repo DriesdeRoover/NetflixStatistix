@@ -59,6 +59,7 @@ public class FilmPanel extends JPanel {
                 DatabaseConnection.connect();
                 try {
                     ResultSet rs = DatabaseConnection.getData("SELECT * FROM Film");
+                    //This was a concept to get the column names from the database as well.
                     //ResultSet r = DatabaseConnection.getMetaData().getColumns(null, null, "Film", null);
                     //                                        while (r.next()) {
                     //                                            String name = r.getString("COLUMN_NAME");
@@ -79,7 +80,6 @@ public class FilmPanel extends JPanel {
                 DatabaseConnection.disconnect();
 
                 filmPanel.add(menuBar, BorderLayout.NORTH);
-                //filmPanel.add(jtbl, BorderLayout.CENTER);
 
         return filmPanel;
     }

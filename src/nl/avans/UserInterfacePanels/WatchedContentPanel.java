@@ -93,29 +93,14 @@ public class WatchedContentPanel extends JPanel {
                         model.addRow(new Object[]{rs.getString("Titel"), rs.getString("PercentageBekeken"),
                                 rs.getString("LaatstBekeken"), rs.getString("ProfielNaam")});
                     }
+                    // Handle any errors that may have occurred.
+                } catch (Exception ex) {
+                    System.out.println("An Error Occurred: " + ex.getMessage());
                 }
 
-                // Handle any errors that may have occurred.
-                catch (Exception ev) {
-                    ev.printStackTrace();
-                } finally {
-                    if (rs != null) try {
-                        rs.close();
-                    } catch (Exception ev) {
-                    }
-                    if (stmt != null) try {
-                        stmt.close();
-                    } catch (Exception ev) {
-                    }
-                    if (con != null) try {
-                        con.close();
-                    } catch (Exception ev) {
-                    }
+
                     JScrollPane pg = new JScrollPane(jtbl);
                     watchPanel.add(pg);
-                }
-
-
             }
         });
 

@@ -71,44 +71,57 @@ public class SeriePanel {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model = (DefaultTableModel) jtbl.getModel();
 
-                //String[] cols = new String[]{"Titel","Tijdsduur", "Leeftijdsindicatie", "Gesproken Taal", "Genre", "Lijkt Op"};
-                Object c =  databaseRepository.getAllEpisodeData(getComboboxValue()).toArray();
+                DatabaseConnection.connect();
+                String name = getComboboxValue();
 
-                //ArrayList<Episode> list = new ArrayList();
-                Object[][] rowData = new Object[6][6];
+                try {
+                    model = new DefaultTableModel();
+                    model = new DefaultTableModel();
+                    model.addColumn("Titel");
+                    model.addColumn("Tijdsduur");
+                    model.addColumn("Leeftijdsindicatie");
+                    model.addColumn("Gesproken Taal");
+                    model.addColumn("Genre");
+                    model.addColumn("Lijkt op");
+                    ResultSet rs = DatabaseConnection.getData( "SELECT * " +
+                            "FROM Aflevering " +
+                            "JOIN Serie ON Serie.SerieNaam = Aflevering.SerieNaam " +
+                            "WHERE Serie.SerieNaam = '" + name + "';");
 
-                for (int i = 0; i < databaseRepository.getAllEpisodeData(getComboboxValue()).size(); i++){
-
-                    rowData[0][0] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-                    rowData[1][1] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-                    rowData[2][2] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-                    rowData[3][3] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-                    rowData[4][4] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-                    rowData[5][5] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
-
-                    model.addRow(rowData);
+                    while (rs.next()) {
+                        model.addRow(new Object[]{rs.getString("Titel"), rs.getString("Tijdsduur"),
+                                rs.getString("LeeftijdsIndicatie"), rs.getString("Taal"), rs.getString("Genre"),
+                                rs.getString("LijktOp")});
+                    }
+                } catch (Exception ex) {
+                    System.out.println("An Error Occurred: " + ex.getMessage());
                 }
 
-
-                //Object[][] data = c[5][6];
-                //Object[][] data = new Object[][]{databaseRepository.getAllEpisodeData(getComboboxValue()).toArray()};
-                    System.out.println(databaseRepository.getAllEpisodeData(getComboboxValue()).toString());
-
-                    //for (int i = 0; i < databaseRepository.getAllEpisodeData(getComboboxValue()).size(); i++){
-                //                        String title = episode.getTitle();
-                //                        String duration = episode.getDuration();
-                //                        String ageInd = episode.getAgeInd();
-                //                        String language = episode.getLanguage();
-                //                        String genre = episode.getGenre();
-                //                        String looksLike = episode.getLooksLike();
+               // model = (DefaultTableModel) jtbl.getModel();
                 //
-                //                        Object[] data = {title, duration, ageInd, language, genre, looksLike};
-                //                        model.add(data);
+                //                //String[] cols = new String[]{"Titel","Tijdsduur", "Leeftijdsindicatie", "Gesproken Taal", "Genre", "Lijkt Op"};
+                //                Object c =  databaseRepository.getAllEpisodeData(getComboboxValue()).toArray();
                 //
-                //                    }
-
+                //                //ArrayList<Episode> list = new ArrayList();
+                //                Object[][] rowData = new Object[6][6];
+                //
+                //                for (int i = 0; i < databaseRepository.getAllEpisodeData(getComboboxValue()).size(); i++){
+                //
+                //                    rowData[0][0] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //                    rowData[1][1] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //                    rowData[2][2] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //                    rowData[3][3] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //                    rowData[4][4] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //                    rowData[5][5] = databaseRepository.getAllEpisodeData(getComboboxValue()).get(i);
+                //
+                //                    model.addRow(rowData);
+                //                }
+                //
+                //
+                //                //Object[][] data = c[5][6];
+                //                //Object[][] data = new Object[][]{databaseRepository.getAllEpisodeData(getComboboxValue()).toArray()};
+                //                    System.out.println(databaseRepository.getAllEpisodeData(getComboboxValue()).toString());
 
                 jtbl.setModel(model);
                 DatabaseConnection.disconnect();
@@ -118,6 +131,7 @@ public class SeriePanel {
         return seriePanel;
     }
 
+    //This method returns the selected item of the combo box.
     public String getComboboxValue(){
         return contentBox.getSelectedItem().toString();
     }
