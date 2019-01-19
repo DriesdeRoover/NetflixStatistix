@@ -77,7 +77,6 @@ public class SeriePanel {
 
                 try {
                     model = new DefaultTableModel();
-                    model = new DefaultTableModel();
                     model.addColumn("Titel");
                     model.addColumn("Tijdsduur");
                     model.addColumn("Leeftijdsindicatie");

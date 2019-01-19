@@ -5,8 +5,8 @@ import java.sql.*;
 public class DatabaseConnection {
     private static java.sql.Connection connection;// DatabaseConnection-data
 
-
-    public static void connect() {                // Responsible for establishing a connection
+    //Responsible for connecting with the database
+    public static void connect() {
         String connectionUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=NetflixStatistix;integratedSecurity=true;";
         connection = null;
 
@@ -20,6 +20,7 @@ public class DatabaseConnection {
         }
     }
 
+    //Get data from the database using a given query
     public static ResultSet getData(String givenQuery) {
         ResultSet resultSet;
         Statement statement;
@@ -35,6 +36,7 @@ public class DatabaseConnection {
         }
     }
 
+    //disconnect from the database
     public static void disconnect()    {
         //Disconnect from the database
         if (connection != null)
