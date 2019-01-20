@@ -1,0 +1,112 @@
+JFDML JFormDesigner: "6.0.5.0.178" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0:1.0"
+			"$rowSpecs": "0:1.0"
+			"$alignTop": true
+			"$alignLeft": true
+		} ) {
+			name: "this"
+			addEvent( new FormEvent( "java.awt.event.InputMethodListener", "inputMethodTextChanged", "thisInputMethodTextChanged", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+					"$columnCount": 2
+					"$rowCount": 3
+				} ) {
+					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Username:"
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "UsernameLabel"
+						}
+					}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+						"row": 1
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField1"
+						"preferredSize": new java.awt.Dimension( 150, 30 )
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "UsernameString"
+						}
+					}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+						"column": 1
+						"row": 1
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "Password:"
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "PasswordLabel"
+						}
+					}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+						"row": 2
+					} )
+					add( new FormComponent( "javax.swing.JPasswordField" ) {
+						name: "passwordField1"
+						"preferredSize": new java.awt.Dimension( 150, 30 )
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "PasswordString"
+						}
+					}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+						"column": 1
+						"row": 2
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "0:1.0, 80, 80"
+					"$rowSpecs": "0"
+					"$hGap": 5
+					"$vGap": 5
+				} ) {
+					name: "buttonBar"
+					"border": new javax.swing.border.EmptyBorder( 12, 0, 0, 0 )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "okButton"
+						"text": "OK"
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "LoginOkButtton"
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 0
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "cancelButton"
+						"text": "Cancel"
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "LoginCancelButton"
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 2
+						"gridy": 0
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "South"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Netflix Statistix"
+					"foreground": new java.awt.Color( 255, 51, 51, 255 )
+					"font": new java.awt.Font( "Arial", 3, 24 )
+					"horizontalAlignment": 0
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "LoginLabel"
+					}
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "North"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 375, 150 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}
